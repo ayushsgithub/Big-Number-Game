@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var tvScore: TextView
     lateinit var rootLayout: View
     private var score = 0;
+    lateinit var btnRest: ImageButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         btnLeft = findViewById(R.id.btnLeft)
         btnRight = findViewById(R.id.btnRight)
         rootLayout = findViewById(R.id.main)
+        btnRest = findViewById(R.id.btReset)
 
 
         getRandomNumber()
@@ -52,14 +55,23 @@ class MainActivity : AppCompatActivity() {
             checkAnswer(false)
             getRandomNumber()
         }
+        btnRest.setOnClickListener(){
+            reset()
+        }
+    }
+
+    private fun reset() {
+        score = 0
+        tvScore.text = "Score: $score"
+        getRandomNumber()
     }
 
     // Generate random number and set to both buttons
     private fun getRandomNumber() {
-        val num1 = Random.nextInt(1, 200)
-        var num2 = Random.nextInt(1, 200)
+        val num1 = Random.nextInt(1, 999)
+        var num2 = Random.nextInt(1, 999)
         if(num1 == num2){
-            num2 = Random.nextInt(1, 200)
+            num2 = Random.nextInt(1, 999)
         }
         btnLeft.text = "$num1"
         btnRight.text = "$num2"
